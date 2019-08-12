@@ -1,0 +1,237 @@
+%class, papersize a4/letter, size and parksip
+\documentclass[letterpaper,11pt,bibliography=totoc,twoside=true,parskip=half]{scrartcl}
+%less margins over title
+%\usepackage[top=.3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+%Input encoding - chose language
+%\usepackage[ngerman]{babel} %alternative for writing German
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+%
+%TODO Set Author, title, and adjust date if neccesary
+\newcommand{\AUTOR}{University of California, Irvine}
+\newcommand{\TITEL}{CEE224A Transportation Data Analysis I}
+\newcommand{\DATUM}{\today} %default date is today
+\renewcommand{\DATUM}{Winter Quarter 2019} %change date if neccesary
+\author{\AUTOR}
+\title{\TITEL}
+\date{\DATUM}
+%
+%settings for PDF
+\usepackage[pdftitle={\TITEL},
+pdfauthor={\AUTOR}]{hyperref}
+%
+%setting up headers
+%only odd pages in onesides documents
+\usepackage[headsepline,automark]{scrlayer-scrpage}
+\clearpairofpagestyles
+\automark[section]{section}
+\automark*[subsection]{}
+%\lehead{\pagemark}
+%\rohead{\pagemark}
+\lohead{\rightmark}
+\rehead{\leftmark}
+%
+%\rofoot{\pagemark}
+\ohead{\normalfont \thepage }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Literature
+\usepackage[backend=biber,style=apa,url=false,hyperref=false,isbn=false,doi=false,sorting=none]{biblatex}
+\addbibresource{lit.bib}
+%ignore note field
+\AtEveryBibitem{%
+	\clearfield{note}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Optional Packages for coding, pictures etc.
+%\usepackage{listings} %source code environment
+%\lstset{
+%	language=R,
+%	breaklines=true,
+%	  numbers=none, %where to put the line-numbers; possible values are (none, left, right)
+%	  numbersep=5pt, % how far the line-numbers are from the code
+%	  numberstyle=\tiny\color{gray}, % the style that is used for the line-numbers
+%	  }
+%%
+\usepackage{graphicx} %Graphic Packages
+\usepackage{tikz,pgf} %Draw Graphic Packages
+%
+\usepackage{amsmath}	%Mathematic packagees
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%
+%Boxes
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsthm}
+%
+%Numbers like 1st etc
+\usepackage[super]{nth}
+%
+%diagobox for tables
+\usepackage{diagbox}
+%
+%licensing
+\usepackage{csquotes}
+\usepackage[
+type={CC},
+modifier={by-sa},
+version={4.0},
+]{doclicense}
+%
+%set space for roman toc number
+\usepackage{tocloft}
+\setlength{\cftpartnumwidth}{3.5cm}
+%better numbered lists
+\usepackage{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%figure count by section
+%\usepackage{chngcntr}
+%\counterwithin{figure}{section}
+%
+%
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+%figure credits
+\newcommand{\credits}[1]{\flushright{\textsf{\tiny #1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%example renaned
+\newcounter{exmp}[section] \setcounter{exmp}{0}
+\renewcommand{\theexmp}{\Roman{section}.\arabic{exmp}}
+\newenvironment{exmp}[2][]{%
+	\refstepcounter{exmp}%
+	\ifstrempty{#1}%
+	{\mdfsetup{%
+			frametitle={%
+				\tikz[baseline=(current bounding box.east),outer sep=0pt]
+				\node[anchor=east,rectangle,fill=cyan!30]
+				{\strut Example~\theexmp};}}
+	}%
+	{\mdfsetup{%
+			frametitle={%
+				\tikz[baseline=(current bounding box.east),outer sep=0pt]
+				\node[anchor=east,rectangle,fill=cyan!30]
+				{\strut Example~\theexmp:~#1};}}%
+	}%
+	\mdfsetup{innertopmargin=10pt,linecolor=cyan!30,backgroundcolor=cyan!5,%
+		linewidth=2pt,topline=true,%
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax%
+		\label{#2}}{\end{mdframed}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{defi}[section]\setcounter{defi}{0}
+\renewcommand{\thedefi}{\Roman{section}.\arabic{defi}}
+\newenvironment{defi}[2][]{%
+	\refstepcounter{defi}%
+	\ifstrempty{#1}%
+	{\mdfsetup{%
+			frametitle={%
+				\tikz[baseline=(current bounding box.east),outer sep=0pt]
+				\node[anchor=east,rectangle,fill=violet!30]
+				{\strut Definition~\thedefi};}}
+	}%
+	{\mdfsetup{%
+			frametitle={%
+				\tikz[baseline=(current bounding box.east),outer sep=0pt]
+				\node[anchor=east,rectangle,fill=violet!30]
+				{\strut Definition~\thedefi:~#1};}}%
+	}%
+	\mdfsetup{innertopmargin=10pt,linecolor=violet!30,backgroundcolor=violet!5,%
+		linewidth=2pt,topline=true,%
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax%
+		\label{#2}}{\end{mdframed}}
+%figures
+\newcounter{fig}[section]\setcounter{fig}{0}
+\renewcommand{\thefig}{\Roman{section}.\arabic{fig}}
+\newenvironment{fig}[3][]{%
+	\begin{figure}[#3]
+	\refstepcounter{fig}%
+	\ifstrempty{#1}%
+	{\mdfsetup{%
+			frametitle={%
+				\tikz[baseline=(current bounding box.east),outer sep=0pt]
+				\node[anchor=east,rectangle,fill=lime!20]
+				{\strut Figure~\thefig};}}
+	}%
+	{\mdfsetup{%
+			frametitle={%
+				\tikz[baseline=(current bounding box.east),outer sep=0pt]
+				\node[anchor=east,rectangle,fill=lime!20]
+				{\strut Figure~\thefig:~#1};}}%
+	}%
+	\mdfsetup{innertopmargin=10pt,linecolor=lime!20,%
+		linewidth=2pt,topline=true,%
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax%
+		\label{#2}}{\end{mdframed}\end{figure}
+	}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%famous statisticans
+\newcounter{famo}\setcounter{famo}{0}
+\renewcommand{\thefamo}{\roman{famo}}
+\newenvironment{famo}[2][]{%
+	\refstepcounter{famo}%
+	\ifstrempty{#1}%
+	{\mdfsetup{%
+			frametitle={%
+				\tikz[baseline=(current bounding box.east),outer sep=0pt]
+				\node[anchor=east,rectangle,fill=olive!30]
+				{\strut Famous Statisticians~\thefamo};}}
+	}%
+	{\mdfsetup{%
+			frametitle={%
+				\tikz[baseline=(current bounding box.east),outer sep=0pt]
+				\node[anchor=east,rectangle,fill=olive!30]
+				{\strut Famous Statisticians~\thefamo:~#1};}}%
+	}%
+	\mdfsetup{innertopmargin=10pt,linecolor=olive!30,backgroundcolor=olive!5,%
+		linewidth=2pt,topline=true,%
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+		\newpage\begin{mdframed}[]\relax%
+		\label{#2}}{\end{mdframed}} % check pagebreaks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Page Margins
+\usepackage[%top=.3cm, bottom=2cm, left=2.2cm, right=2.2cm
+]{geometry}
+%
+%Heading number schemata
+\makeatletter% wegen @ in den \p@ (siehe De-TeX-FAQ)
+\renewcommand*{\thesection}{\Roman{section}}
+\renewcommand*{\thesubsection}{\Roman{section}.\arabic{subsection}}
+%\renewcommand*{\p@subsection}{\thesection~}
+\renewcommand*{\thesubsubsection}{\Roman{section}.\arabic{subsection}.\Alph{subsubsection}}
+%\renewcommand*{\p@subsubsection}{\p@subsection\thesubsection~}
+\makeatother% wegen \makeatletter (siehe De-TeX-FAQ)
+%Change title font
+\addtokomafont{disposition}{\rmfamily}
+%Appendix
+\usepackage[titletoc]{appendix}
+%emph as bold
+%\renewcommand{\emph}[1]{\color{Brown}{\textbf{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Symbol list
+%\usepackage[intoc]{nomencl}
+%%\renewcommand{\nomname}{List of Symbols and Abbreviations}
+%\newcommand*{\nom}[2]{#2 (#1)\nomenclature[A]{#1}{#2}}
+%\newcommand*{\sym}[2]{#2 (#1)\nomenclature[S]{#1}{#2}}
+%%\renewcommand\nomenclature[3][X]{\nomenclature[#1#3]{#2}{#3}}
+%\renewcommand{\nomgroup}[1]{%
+%	\ifstrequal{#1}{A}{\item[\sffamily{\textbf{Acronyms}}]}{%
+%		\ifstrequal{#1}{S}{\vspace{20pt} \item[\sffamily{\textbf{Symbols}}]}{}}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\include{00intro}
+\include{01desc}
+\include{02stint}
+\include{03linrg}
+\include{04binary}
+\begin{appendices}
+	\include{01deriv}
+	\include{02distr}
+\end{appendices}
+\end{document}
+%TODO E[] oder runde klammern.... X evtl groß bei LR

@@ -1,0 +1,63 @@
+\section{Derivatives with Respect to a Vector}\label{app:der}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myparagraph{Case 1}
+Let $\vec{v}$ be a $n\times 1$ vector of known coefficients and $\vec{\beta}$ a $n\times 1$ be a real vector.
+\begin{equation*}
+	\vec{v}=
+	\begin{pmatrix}
+		v_1\\
+		\vdots\\
+		v_n
+	\end{pmatrix},\quad	\vec{\beta}=
+	\begin{pmatrix}
+		\beta_1\\
+		\vdots\\
+		\beta_n	
+	\end{pmatrix}
+\end{equation*}
+Let $\underbrace{F(\beta)}_{\hbox{scalar}}=\underbrace{\vec{v'}}_{1\times n} \underbrace{\vec{\beta}}_{n\times 1}=\sum\limits_{i=1}^n v_i \beta_i$
+\begin{equation*}
+	\underbrace{\nabla F}_{\hbox{gradient}}=\frac{\partial F}{\partial \vec{\beta}}=
+	\begin{pmatrix}
+	\frac{\partial F}{\partial \beta_1}\\
+	\vdots\\
+	\frac{\partial F}{\partial \beta_n}
+	\end{pmatrix}=
+	\begin{pmatrix}
+	v_1\\
+	\vdots\\
+	v_n
+	\end{pmatrix}=\vec{v}=\nabla(\vec{v'} \vec{\beta})
+\end{equation*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myparagraph{Case 2}
+Let M be a $n\times n$ real matrix. Consider $\underbrace{G(\beta)}_{\hbox{scalar}}=\underbrace{\vec{\beta'}}_{1\times n} \underbrace{M}_{n\times n} \underbrace{\vec{\beta}}_{n\times 1}$.	
+\begin{align*}
+	\frac{\partial G}{\partial \vec{\beta}}&=\nabla G\\
+	G(\vec{\beta})&=\sum\limits_{i=1}^n \beta_i (M  \beta)_i = \sum\limits_{i=1}^n \beta_i \sum\limits_{j=1}^n M_{ij}\beta_j\\
+	\text{for }k=1,...,n\;\frac{\partial G}{\partial \beta_k}&=?\;\longrightarrow\text{ We partition the }\sum\sum
+	\end{align*}	
+	\begin{align*}
+	\begin{cases}
+		i=k,\, j=k:\quad\beta_k  M_{kk}  \beta_k,\,\frac{\partial}{\partial \beta_k}=2\beta_k   M_{kk}\\
+		i=k,\, j\neq k:\quad\beta_k \sum\limits_{j=1}^n M_{kj} \beta_k,\,\frac{\partial}{\partial \beta_k}=\sum\limits_{j=1,j\neq k}^n M_{kj} \beta_j\\
+		i\neq k,\, j=k:\quad\sum\limits_{i=1,i\neq k}^n \beta_i  M_{ik} \beta_k,\,\frac{\partial}{\partial \beta_k}=\sum\limits_{i=1,i\neq k}^n \beta_i  M_{ik}\\
+	i\neq k,\, j\neq k:\quad\frac{\partial}{\partial \beta_k}=0
+	\end{cases}
+\end{align*}
+\begin{align*}
+	\Longrightarrow\;\frac{\partial G}{\partial \beta_k}&=2\beta_k  M_{kk}+\sum\limits_{j=1,j\neq k}^n M_{kj} \beta_j+\sum\limits_{i=1,i\neq k}^n \beta_i   M_{ik}\\
+	&=\sum\limits_{j=1}^n M_{kj} \beta_j+\sum\limits_{i=1}^n \beta_i   M_{ik}\\	
+	&=(M \vec{\beta})_k+(\vec{\beta'}  M)_k\\
+	\nabla G&=\begin{pmatrix}
+		\frac{\partial G}{\partial \beta_1}\\
+		\vdots\\
+		\frac{\partial G}{\partial \beta_n}
+	\end{pmatrix}=\begin{pmatrix}
+		(\vec{\beta'}  M)_1+(M \vec{\beta})_1\\
+		\vdots\\
+		(\vec{\beta'}  M)_n+(M \vec{\beta})_n	
+	\end{pmatrix}=(\vec{\beta'}  M)'+(M \vec{\beta})=M' \vec{\beta}+M \vec{\beta}\\
+	\Longrightarrow\nabla G&=M' \vec{\beta}+M \vec{\beta},\qquad G(\vec{\beta})=\vec{\beta'}  M \vec{\beta}
+\end{align*}
+For the special case of a symmetric matrix $M=M'\,\Longrightarrow\,\nabla G=2  M \vec{\beta}$.
